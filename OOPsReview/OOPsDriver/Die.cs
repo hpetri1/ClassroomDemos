@@ -50,9 +50,12 @@ namespace OOPsDriver
             }
         }
 
+
         //can be auto implemented
         // does not have a private data member
         // the system creates an internal data storage member for the property
         public int FaceValue { get; set; }
     }
 }
+
+//ALWAYS close Visual Studio before pushing to Gitlab!!
