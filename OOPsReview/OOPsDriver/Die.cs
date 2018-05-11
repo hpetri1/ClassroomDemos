@@ -54,6 +54,39 @@ namespace OOPsDriver
         // does not have a private data member
         // the system creates an internal data storage member for the property
         public int FaceValue { get; set; }
+
+        //within a property you can validate that the incoming data value is "what is expected"
+        private string _Color;
+        public string Color
+        {
+            get
+            {
+                return _Color;          
+            }
+
+            set
+            {
+                //sample validation
+                //there MUST be data within the incoming value
+                //so an empty string is invalid
+                if(string.IsNullOrEmpty(value)) //ALWAYS use this method to test if value is null or empty string!!!
+                {
+                    //incoming data value is incorrect
+                    // a) you could send a message to the outside user
+                    //throw new Exception("Color must have a value");
+
+                    //OR
+                    // b) you could allow the storage of a null value within the string data member
+                    _Color = null;
+
+                    //DO a) OR b), NOT both together
+                }
+                else
+                {
+                    _Color = value;
+                }
+            }
+        }
     }
 }
 
