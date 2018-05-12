@@ -87,6 +87,37 @@ namespace OOPsDriver
                 }
             }
         }
+
+        //Constructors
+        //constructors are NOT directrly called by the outside user
+        //constructors are called indirectly when the ouside user creates the instance of the class
+        //to create an instance of the class the outside user will declare the Class variablename = new Class();
+        //it is the 'new' that calles the constructor
+        
+        //you may or may not have a constructor for your class
+        //IF you do NOT code a constructor for your class then a Default System Constructor is executed
+        //This default system constructor initializes your locate data members to their default C# values.
+
+        //If you do code a constructor for your class then YOU are responsible for all/any constructor in the class
+
+        //"Default" constructor
+        //This constructor is similar to the system constructor
+        //this constructor would be called for --> new classname();
+        public Die()
+        {
+
+        }
+
+        //"Greedy" constructor
+        //This constructor usually receives a list of parameters,
+        // one for each data member in the class
+        //the constructor takes the parameter values and assignes the value to the appropriate data member
+        //this constructor would be called for --> new Classname(value1, value2, ...);
+        public Die(int sides, string color)
+        {
+            Sides = sides; //the set{} of the property Sides is used
+            Color = color;
+        }
     }
 }
 
