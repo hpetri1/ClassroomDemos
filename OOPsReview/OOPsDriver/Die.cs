@@ -41,7 +41,7 @@ namespace OOPsDriver
                 //this will return the private data member
                 return _Sides;
             }
-            set
+            private set //changed it to private because of the public void SetSides(int sides) method
             {
                 //the reserved key word 'value' is used to obtain the incoming data value to the property, 
                 //save the income data value to your private data member
@@ -53,7 +53,10 @@ namespace OOPsDriver
         //can be auto implemented
         // does not have a private data member
         // the system creates an internal data storage member for the property
-        public int FaceValue { get; set; }
+        
+        public int FaceValue { get; private set; } //changed set to private at the very end
+        //for the outside user, this property is now readonly
+        //methods and code WITHIN the class still have access to set
 
         //within a property you can validate that the incoming data value is "what is expected"
         private string _Color;
@@ -105,7 +108,9 @@ namespace OOPsDriver
         //this constructor would be called for --> new classname();
         public Die()
         {
-
+            //even though the Sides would be set to a valid numeric within this class, a more logical value would be 6 (commented after public void Roll() was added)
+            Sides = 6;
+            Color = "White";
         }
 
         //"Greedy" constructor
@@ -117,6 +122,33 @@ namespace OOPsDriver
         {
             Sides = sides; //the set{} of the property Sides is used
             Color = color;
+            Roll();
+        }
+
+        //Behaviours
+        //these are methods
+        public void Roll()
+        {
+            //will be used to geberate a new facevalue for the instance
+            //an instance of the math class Random() has been coded at the top of this class
+            //the method in the class Random that will be called is
+            //  .Next(inclusive lowest number, axclusive highest number)
+            FaceValue = _rnd.Next(1, Sides + 1);
+        }
+
+        public void SetSides(int sides)
+        {
+            //let us assume only 6 to 20 sided dice are allowed
+            if(sides > 5 && sides < 21)
+            {
+                Sides = sides;
+                Roll();
+            }
+            else
+            {
+                //bad input
+                throw new Exception("Invalid number of sides for the dice!");
+            }
         }
     }
 }
