@@ -129,7 +129,7 @@ namespace OOPsDriver
         //these are methods
         public void Roll()
         {
-            //will be used to geberate a new facevalue for the instance
+            //will be used to generate a new facevalue for the instance
             //an instance of the math class Random() has been coded at the top of this class
             //the method in the class Random that will be called is
             //  .Next(inclusive lowest number, axclusive highest number)
