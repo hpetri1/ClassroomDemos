@@ -111,6 +111,7 @@ namespace OOPsDriver
             //even though the Sides would be set to a valid numeric within this class, a more logical value would be 6 (commented after public void Roll() was added)
             Sides = 6;
             Color = "White";
+            Roll();
         }
 
         //"Greedy" constructor

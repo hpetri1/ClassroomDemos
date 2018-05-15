@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOPsDriver
 {
-    public class Turn
+    class Turn
     {
         public int Player1DiceValue { get; set; }
         public int Player2DiceValue { get; set; }
