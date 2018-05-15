@@ -17,7 +17,7 @@ namespace OOPsDriver
             //we need to have a structure that will allow one to hold an unknown number of instances 
             //of a variable 
             //List<T> is an object that holds x number of datatype instances
-            //THe new List<T> physically creates the instance of List<T> in memory.
+            //The new List<T> physically creates the instance of List<T> in memory.
             //The constructor of List<T> is called
             List<Turn> gameTurns = new List<Turn>();
 

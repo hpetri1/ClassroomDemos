@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OOPsDriver
 {
-    //classes by default have a access previlege of private 
-    //you MUST add puplic to your classes
+    //classes by default have an access previlege of private 
+    //you MUST add public to your classes
 
     public class Die
     {
@@ -24,7 +24,7 @@ namespace OOPsDriver
         // c) constuctors
         // d) behaviours (methods)
 
-        //data members may be private for the class for use only
+        //data members may be private for the class use only
         //   within the class
 
         //the interface with a class is done via properties and behaviours
@@ -44,7 +44,7 @@ namespace OOPsDriver
             private set //changed it to private because of the public void SetSides(int sides) method
             {
                 //the reserved key word 'value' is used to obtain the incoming data value to the property, 
-                //save the income data value to your private data member
+                //save the incoming data value to your private data member
 
                 _Sides = value;  //the incoming data is a value, that needs to be stored into something, in our case _Sides
             }
@@ -108,7 +108,8 @@ namespace OOPsDriver
         //this constructor would be called for --> new classname();
         public Die()
         {
-            //even though the Sides would be set to a valid numeric within this class, a more logical value would be 6 (commented after public void Roll() was added)
+            //even though the Sides would be set to a valid numeric within this class, 
+            //a more logical value would be 6 (commented after public void Roll() was added)
             Sides = 6;
             Color = "White";
             Roll();
@@ -133,7 +134,7 @@ namespace OOPsDriver
             //will be used to generate a new facevalue for the instance
             //an instance of the math class Random() has been coded at the top of this class
             //the method in the class Random that will be called is
-            //  .Next(inclusive lowest number, axclusive highest number)
+            //  .Next(inclusive lowest number, exclusive highest number)
             FaceValue = _rnd.Next(1, Sides + 1);
         }
 
