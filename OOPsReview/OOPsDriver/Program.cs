@@ -107,11 +107,32 @@ namespace OOPsDriver
                         }
                     case "X":
                         {
+                            //display summary results of game
+                            int[] counts = new int [] { 0, 0, 0 };
+                            foreach(var aturn in gameTurns)
+                            {
+                                if (aturn.TurnWinner.Equals("Player1"))
+                                {
+                                    counts[0]++;
+                                }
+                                else if (aturn.TurnWinner.Equals("Player2"))
+                                {
+                                    counts[1]++;
+                                }
+                                else
+                                {
+                                    counts[2]++;
+                                }
+                            }
+
+                            Console.WriteLine("Player1 wins {0} times, Player2 wins {1} times, Draws {2}.", counts[0], counts[1], counts[2]);
+
                             Console.WriteLine("Thank you for playing. Come again.");
                             break;
-                            //Add foreeach loop that will walt through the collection
+                            //Add foreeach loop that will walk through the collection
                             //Own if statement
-                            //COunt all wins for Player1, wins for Player2, and count for Draws
+                            //Count all wins for Player1, wins for Player2, and count for Draws
+
                         }
                     default:
                         {
