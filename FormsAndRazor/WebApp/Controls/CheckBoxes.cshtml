@@ -9,6 +9,44 @@
 }
 
     <div>
+        @if (IsPost)
+        {
+            //the variable will contain a list of all the checkboxes
+            // that were selected by the user
+
+            var choices = Request.Form["CheckBoxGroup"];
+
+            //validate that at least one checkbox was turned on
+            if (choices.IsEmpty())
+            {
+                <p><span style="color:firebrick">Make a selection from both coding choices.</span></p>
+            }
+            else
+            {
+                //setup the delimiter as a character for use in dividing
+                //the set of values that will be returned from the set of characters
+                //Characters are defined with single quotes
+
+                char[] delimiter = { ',' };
+
+                //use the .Split(delimiter) method to split up the return string
+                //This method returns a string array that contains the substrings in the string instance that are delimited
+                //by eklements of a specified string or Unicode character array.
+
+                //To loop, use the foreach as it controls the number of passes and will terminate when there is no more data to sepatare.
+
+                <p>
+                    I see you like to use the following platforms:
+                    <ul>
+                        @foreach (var platform in choices.Split(delimiter))
+                        {
+                        <li>@platform</li>
+                        }
+                    </ul>
+                </p>
+            }
+
+        }
         <form id="theForm" action="" method="post">
             <div class="col-md-offset-1">
                 <label id="forCheckBoxGroup">Select your favourite gaming platform.</label><br />
@@ -19,7 +57,7 @@
                 <input type="checkbox" name="CheckBoxGroup" value="Cell" />&nbsp;Cellphone<br />
                 <input type="checkbox" name="CheckBoxGroup" value="iPad" />&nbsp;iPad<br />
                 <input type="checkbox" name="CheckBoxGroup" value="Wii" />&nbsp;Wii<br />
-                <br/>
+                <br />
                 <button type="submit" name="formButton" value="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>

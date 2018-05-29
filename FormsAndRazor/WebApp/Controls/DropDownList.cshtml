@@ -1,6 +1,8 @@
 ﻿@{
     Page.Title = "Drop Down";
     Layout = "~/_LayoutPage.cshtml";
+
+    var choice = Request.Form["CodingSample"];
 }
 
 @section banner
@@ -8,3 +10,55 @@
     <h1>Drop Down (Select)</h1>
 }
 
+    <div>
+        @if (IsPost)
+        {
+            switch (choice.ToUpper())
+            {
+                case "TEXTBOXES":
+                    {
+                        //use the Response object's method Redirect("page name") to send the user to a specific page
+                        //use relative addressing in referrencing your page
+                        Response.Redirect("TextBoxes.cshtml");
+                        break;
+                    }
+
+
+                case "RADIOBUTTONS":
+                    {
+                        Response.Redirect("RadioButtonList.cshtml");
+                        break;
+                    }
+
+                case "CHECKBOXES":
+                    {
+                        Response.Redirect("CheckBoxes.cshtml");
+                        break;
+                    }
+
+                default:
+                    {
+                        //is a message if the prompt line is the current option choice
+                    <p><span style="color:firebrick">Make a selection from the list of choices.</span></p>
+                        break;
+                    }
+            }
+        }
+        <form id="theForm" action="" method="post">
+            <div class="col-md-offset-1">
+                <label id="forCodingSample">Select the sample to view</label><br />
+                <!--The Select tag is used to the drobox control.
+                Each item in the control is specified using the Option tag.
+                To set an item to be the selected item, use the Option tag parameter selected.
+                If no item has been selected the the first Option is the default option that is shown.
+                Often you will see that the first choice is a prompt from the control. This is referred to as a prompt line-->
+                <select name="CodingSample">
+                    <option value="value">select....</option>
+                    <option value="TextBoxes">Text Boxes</option>
+                    <option value="RadioButtons">Radio Buttons</option>
+                    <option value="CheckBoxes">Check Boxes</option>
+                </select>
+                <button type="submit" id="formbutton" name="formbutton" class="btn btn-primary" value="Submit">Go To...</button>
+            </div>
+        </form>
+    </div>
