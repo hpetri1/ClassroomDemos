@@ -1,0 +1,28 @@
+﻿@{
+    Page.Title = "Web Grid Page";
+    Layout = "~/_LayoutPage.cshtml";
+
+    //use the Request.QueryString["xxx"] method to capture data that may be passed to this page
+    //reference the parameterid in this method
+
+    var cid = Request.QueryString["cid"];
+
+    //BEST PRACTICE
+    //If you expect a parameter then check that it was actually passed
+    //if a parameter value was not received, your variable will be null
+
+    if(string.IsNullOrEmpty(cid))
+    {
+        Response.Redirect("MultiRecordQuery.cshtml");
+    }
+}
+
+@section banner
+{
+    <h1>Database: Web Grid Page</h1>
+}
+    <div>
+        You passed in the value @cid
+    </div>
+
+
