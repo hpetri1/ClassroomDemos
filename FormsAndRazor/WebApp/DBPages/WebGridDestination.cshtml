@@ -1,0 +1,16 @@
+﻿@{
+    Page.Title = "Web Grid Destination";
+    Layout = "~/_LayoutPage.cshtml";
+
+    var pid = Request.QueryString["pid"];
+    var pn = Request.QueryString["pn"];
+}
+
+@section banner
+{
+    <h1>Database: Web Grid Page</h1>
+}
+
+    <div>
+        You passed the product @pn  (@pid)
+    </div>
