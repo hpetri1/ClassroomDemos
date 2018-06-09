@@ -5,8 +5,8 @@
     var thebutton = Request.Form["formButton"];
 
     var productname = "";
-    var supplierid = "";
-    var categoryid = "";
+    var supplierid = "0"; //the value 0 points to the prompt line  (0 added after adding select drop-down)
+    var categoryid = "0";
     var quantityperunit = "";
     var unitprice = "";
     var unitsinstock = "";
@@ -17,13 +17,13 @@
     //two queries to get a list of suppliers and list of categories
     var db = Database.Open("NWDB");
 
-    //var supplierquery = "SELECT SupplierID, CompanyName "
-    //                    + "FROM Suppliers ORDER by 2";
-    //var categoryquery = "SELECT CategoryID, CategoryName "
-    //                    + "FROM Category ORDER by 2";
+    var supplierquery = "SELECT SupplierID, CompanyName "
+                        + "FROM Suppliers ORDER by 2";
+    var categoryquery = "SELECT CategoryID, CategoryName "
+                        + "FROM Categories ORDER by 2";
 
-    //var supplierlist = db.Query(supplierquery);
-    //var categoryslist = db.Query(categoryquery);
+    var supplierlist = db.Query(supplierquery);
+    var categoryslist = db.Query(categoryquery);
 }
 
 @section banner
@@ -74,10 +74,16 @@
                     var insertcommand = "INSERT into Products (ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued) "
                                         + "Values(@0, @1, @2, @3, @4, @5, @6, @7, @8)";
 
-                    //
-                    db.Execute(insertcommand, productname, string.IsNullOrEmpty(supplierid)?null:supplierid, // that's the easiest way to put in an IF ELSE question
-                        string.IsNullOrEmpty(categoryid) ? null : categoryid,
-                        string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit,
+                    //execute the command
+                    //Because the select tag will always have a value
+                    // You can o longer use IsNullOrEmpty (as this is a textbox tes
+                    //Instead you will need to test for a particular value .Equals("xxxx")
+                    db.Execute(insertcommand, productname,
+                        //string.IsNullOrEmpty(supplierid)?null:supplierid, 
+                        supplierid.Equals("0") ? null : supplierid,
+                        //string.IsNullOrEmpty(categoryid) ? null : categoryid,
+                        categoryid.Equals("0") ? null : categoryid,
+                        string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit, // that's the easiest way to put in an IF ELSE question
                         string.IsNullOrEmpty(unitprice) ? null : unitprice,
                         string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
                         string.IsNullOrEmpty(unitsonorder) ? null : unitsonorder,
@@ -112,8 +118,44 @@
                 </div>
                 <div class="col-sm-7">
                     <input type="text" name="ProductName" value="@productname" title="Enter Product Name" /><br />
-                    <input type="text" name="SupplierID" value="@supplierid" title="Enter Supplier ID" /><br />
-                    <input type="text" name="CategoryID" value="@categoryid" title="Enter Category ID" /><br />
+                    @*<input type="text" name="SupplierID" value="@supplierid" title="Enter Supplier ID" /><br />*@ 
+                    <select id="SupplierID" name="SupplierID">
+                        <option value="0">select...</option>
+                        @foreach(var item in supplierlist)
+                        {
+                            //to determine based on the previous selected row
+                            //  which row to set as selected.
+                            //The Request.Form["xxx"] optained the posted
+                            //  select value from the user. (under IsPost)
+                            //By the time the processor gets to this code
+                            //  a particular supplierID value will exist.
+                            if(item.SupplierID.ToString() == supplierid)
+                            {
+                                <option value="@item[0]" selected>@item.CompanyName</option>
+                            }
+                            else
+                            {
+                                <option value="@item[0]">@item.CompanyName</option>
+                            }
+                            
+                        }
+                    </select><br/>
+                    @*<input type="text" name="CategoryID" value="@categoryid" title="Enter Category ID" /><br />*@
+                    <select id="CategoryID" name="CategoryID">
+                        <option value="0">select...</option>
+                        @foreach(var item in categoryslist)
+                        {
+                            if(item.CategoryID.ToString() == categoryid)
+                            {
+                                <option value="@item[0]" selected>@item.CategoryName</option> @*[1] because if you do [0] it will show numbers instead of Names*@
+                            }
+                            else
+                            {
+                                <option value="@item[0]">@item.CategoryName</option>
+                            }
+                        
+                        }
+                    </select><br/>
                     <input type="text" name="QuantityPerUnit" value="@quantityperunit" title="Enter Product Size" /><br />
                     <input type="text" name="UnitPrice" value="@unitprice" title="Enter Unit Price" /><br />
                     <input type="text" name="UnitsInStock" value="@unitsinstock" title="Enter Quantity In Stock" /><br />
