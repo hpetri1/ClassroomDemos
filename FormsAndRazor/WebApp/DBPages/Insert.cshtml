@@ -84,7 +84,7 @@
                         //string.IsNullOrEmpty(categoryid) ? null : categoryid,
                         categoryid.Equals("0") ? null : categoryid,
                         string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit, // that's the easiest way to put in an IF ELSE question
-                        string.IsNullOrEmpty(unitprice) ? null : unitprice,
+                        string.IsNullOrEmpty(unitprice) ? "0" : unitprice, //changed null to "0" because of the format issue on the WebGrid page
                         string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
                         string.IsNullOrEmpty(unitsonorder) ? null : unitsonorder,
                         string.IsNullOrEmpty(reorderlevel) ? null : reorderlevel,
