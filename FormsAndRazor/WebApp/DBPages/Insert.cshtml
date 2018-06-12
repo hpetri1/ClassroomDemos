@@ -24,6 +24,49 @@
 
     var supplierlist = db.Query(supplierquery);
     var categoryslist = db.Query(categoryquery);
+
+    // These are some SERVER SIDE VALIDATION controls
+    //https://www.mikesdotnetting.com/article/191/validation-in-razor-web-pages-2
+
+    //Required with stringlengh check
+    //syntax
+    //Validatin.Add("controlname",
+    //   Validator.xxxx(parameters), Validator.yyyy(parameters)...);
+
+    Validation.Add("ProductName",
+        Validator.Required("Product Name is required!"),
+        Validator.StringLength(40, 1, "Product Name is limited to 40 characters"));
+
+    Validation.Add("QuantityPerUnit",
+        Validator.StringLength(20, 0, "Quantity Per Unit is limited to 20 characters"));
+
+    Validation.Add("UnitPrice",
+        Validator.Range(0.00, double.MaxValue, "Unit Price must be 0 or greater"));
+
+    Validation.Add("UnitsInStock",
+        Validator.Range(0, Int16.MaxValue, "Units In Stock must be between 0 and 32767"));
+
+
+
+    Validation.Add("UnitsOnOrder",
+        Validator.Range(0, Int16.MaxValue, "Units On Order must be between 0 and 32767"));
+
+    Validation.Add("ReorderLevel",
+        Validator.Range(0, Int16.MaxValue, "Reorder Level must be between 0 and 32767"));
+
+    //there are no field for examples on the product form
+    //Password Validation
+
+    //Validation.Add("NewPassword",
+    //    Validator.Required("Missing new password"),
+    //    Validator.StringLength(40, 6, "Invalid new password"),
+    //    Validator.EqualsTo("ConfirmPassword", "New password not confirmed."));
+
+    //Postal Code (pattern test)
+    //Validation.Add("PostalCode",
+    //    Validator.Required("Missing Postal Code"),
+    //    Validator.Regex("[a-zA-Z][0-9][a-zA-Z][0-9][a-zA-Z][0-9]", "Postalcode is invalid."),
+    //    Validator.EqualsTo("ConfirmPassword", "New password not confirmed."));
 }
 
 @section banner
@@ -41,7 +84,7 @@
             </blockquote>
         </div>
 
-        @if(IsPost)
+        @if (IsPost)
         {
             if (thebutton.Equals("clear"))
             {
@@ -63,46 +106,81 @@
                 //if the checkbox is checked the value returned is the string "on"
                 discontinued = Request.Form["Discontinued"];
 
-                //add this data to the database
-                try
+                //for validation controls on the server side to ACTUALLY fire, you
+                //MUST execute the Validation.IsValid() method
+                if (Validation.IsValid())
                 {
-                    // 1) connect to DB
-                    //the db var is created at the top of the page as a global variable, therefore there is no need to declare db here
-                    //var db = Database.Open("NWDB");
+                    //IF we ASSUME that a supplier and category are actually required
+                    // we could test that the prompt line is not the selected value
+                    if (supplierid.Equals("0"))
+                    {
+                       <p class="text-center">
+                            <span style="color:firebrick">Please select a supplier</span>
+                        </p>
+                    }
+                    else if (categoryid.Equals("0"))
+                    {
+                        <p class="text-center">
+                            <span style="color:firebrick">Please select a category</span>
+                        </p>
+                    }
+                    else
+                    {
 
-                    // 2) set up the command
-                    var insertcommand = "INSERT into Products (ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued) "
-                                        + "Values(@0, @1, @2, @3, @4, @5, @6, @7, @8)";
 
-                    //execute the command
-                    //Because the select tag will always have a value
-                    // You can o longer use IsNullOrEmpty (as this is a textbox tes
-                    //Instead you will need to test for a particular value .Equals("xxxx")
-                    db.Execute(insertcommand, productname,
-                        //string.IsNullOrEmpty(supplierid)?null:supplierid, 
-                        supplierid.Equals("0") ? null : supplierid,
-                        //string.IsNullOrEmpty(categoryid) ? null : categoryid,
-                        categoryid.Equals("0") ? null : categoryid,
-                        string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit, // that's the easiest way to put in an IF ELSE question
-                        string.IsNullOrEmpty(unitprice) ? "0" : unitprice, //changed null to "0" because of the format issue on the WebGrid page
-                        string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
-                        string.IsNullOrEmpty(unitsonorder) ? null : unitsonorder,
-                        string.IsNullOrEmpty(reorderlevel) ? null : reorderlevel,
-                        0); // 0 for discontinued
+                        //add this data to the database
+                        try
+                        {
+                            // 1) connect to DB
+                            //the db var is created at the top of the page as a global variable, therefore there is no need to declare db here
+                            //var db = Database.Open("NWDB");
 
-                    <p class="col-sm-12 text-center">
-                        <span style="color:forestgreen"><strong>Product was added</strong></span>
-                    </p>
+                            // 2) set up the command
+                            var insertcommand = "INSERT into Products (ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued) "
+                                                + "Values(@0, @1, @2, @3, @4, @5, @6, @7, @8)";
 
-                }
-                catch(Exception ex)
-                {
-                    <p class="col-sm-12 text-center">
-                        <span style="color:firebrick"><strong>@ex.Message</strong></span>
-                    </p>
+                            //execute the command
+                            //Because the select tag will always have a value
+                            // You can o longer use IsNullOrEmpty (as this is a textbox tes
+                            //Instead you will need to test for a particular value .Equals("xxxx")
+                            db.Execute(insertcommand, productname,
+                                //string.IsNullOrEmpty(supplierid)?null:supplierid,
+                                supplierid.Equals("0") ? null : supplierid,
+                                //string.IsNullOrEmpty(categoryid) ? null : categoryid,
+                                categoryid.Equals("0") ? null : categoryid,
+                                string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit, // that's the easiest way to put in an IF ELSE question
+                                string.IsNullOrEmpty(unitprice) ? "0" : unitprice, //changed null to "0" because of the format issue on the WebGrid page
+                                string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
+                                string.IsNullOrEmpty(unitsonorder) ? null : unitsonorder,
+                                string.IsNullOrEmpty(reorderlevel) ? null : reorderlevel,
+                                0); // 0 for discontinued
+
+                        <p class="col-sm-12 text-center">
+                            <span style="color:forestgreen"><strong>Product was added</strong></span>
+                        </p>
+
+                        }
+                        catch (Exception ex)
+                        {
+                        <p class="col-sm-12 text-center">
+                            <span style="color:firebrick"><strong>@ex.Message</strong></span>
+                        </p>
+                        }//eotc
+                    }
                 }
             }
         }
+
+        <!-- Displaying SERVER SIDE VALIDATION control messages
+            This can be done in 2 ways.
+            a) Using your Html.VAlidationSummary control
+                gives by default a bulleted list of all errors
+            b) beside the individual control using Html.ValidationMessage("xxxxxx")
+            where xxxxxx is the control name-->
+        @Html.ValidationSummary()
+        <!-- to view possible HTML5 client side validation, check out the url
+        https://www.w3.org/WAI/tutorials/forms/validation/ -->
+
         <form id="theForm" action="" method="post">
             <div class="row">
                 <div class="col-sm-5 text-right">
@@ -118,50 +196,51 @@
                 </div>
                 <div class="col-sm-7">
                     <input type="text" name="ProductName" value="@productname" title="Enter Product Name" /><br />
-                    @*<input type="text" name="SupplierID" value="@supplierid" title="Enter Supplier ID" /><br />*@ 
+                    @Html.ValidationMessage("ProductName")
+                    @*<input type="text" name="SupplierID" value="@supplierid" title="Enter Supplier ID" /><br />*@
                     <select id="SupplierID" name="SupplierID">
                         <option value="0">select...</option>
-                        @foreach(var item in supplierlist)
+                        @foreach (var item in supplierlist)
+                    {
+                        //to determine based on the previous selected row
+                        //  which row to set as selected.
+                        //The Request.Form["xxx"] optained the posted
+                        //  select value from the user. (under IsPost)
+                        //By the time the processor gets to this code
+                        //  a particular supplierID value will exist.
+                        if (item.SupplierID.ToString() == supplierid)
                         {
-                            //to determine based on the previous selected row
-                            //  which row to set as selected.
-                            //The Request.Form["xxx"] optained the posted
-                            //  select value from the user. (under IsPost)
-                            //By the time the processor gets to this code
-                            //  a particular supplierID value will exist.
-                            if(item.SupplierID.ToString() == supplierid)
-                            {
-                                <option value="@item[0]" selected>@item.CompanyName</option>
-                            }
-                            else
-                            {
-                                <option value="@item[0]">@item.CompanyName</option>
-                            }
-                            
-                        }
-                    </select><br/>
+                            <option value="@item[0]" selected>@item.CompanyName</option>
+                    }
+                    else
+                    {
+                        <option value="@item[0]">@item.CompanyName</option>
+                }
+
+            }
+                    </select><br />
                     @*<input type="text" name="CategoryID" value="@categoryid" title="Enter Category ID" /><br />*@
                     <select id="CategoryID" name="CategoryID">
                         <option value="0">select...</option>
-                        @foreach(var item in categoryslist)
+                        @foreach (var item in categoryslist)
+                    {
+                        if (item.CategoryID.ToString() == categoryid)
                         {
-                            if(item.CategoryID.ToString() == categoryid)
-                            {
-                                <option value="@item[0]" selected>@item.CategoryName</option> @*[1] because if you do [0] it will show numbers instead of Names*@
-                            }
-                            else
-                            {
-                                <option value="@item[0]">@item.CategoryName</option>
-                            }
-                        
-                        }
-                    </select><br/>
+                            <option value="@item[0]" selected>@item.CategoryName</option> @*[1] because if you do [0] it will show numbers instead of Names*@
+                    }
+                    else
+                    {
+                        <option value="@item[0]">@item.CategoryName</option>
+                }
+
+            }
+                    </select><br />
                     <input type="text" name="QuantityPerUnit" value="@quantityperunit" title="Enter Product Size" /><br />
                     <input type="text" name="UnitPrice" value="@unitprice" title="Enter Unit Price" /><br />
                     <input type="text" name="UnitsInStock" value="@unitsinstock" title="Enter Quantity In Stock" /><br />
                     <input type="text" name="UnitsOnOrder" value="@unitsonorder" title="Enter Quantity On Order" /><br />
                     <input type="text" name="ReorderLevel" value="@reorderlevel" title="Enter Reorder Level" /><br />
-                    <input type="checkbox" name="Discontinued" title="Discontinued if checked" @(string.IsNullOrEmpty(discontinued)?"":"Checked")/> (discontinued if checked)<br />
+                    <input type="checkbox" name="Discontinued" title="Discontinued if checked" @(string.IsNullOrEmpty(discontinued) ? "" : "Checked") /> (discontinued if checked)<br />
                 </div>
             </div>
             <div class="col-sm-12 text-center">
