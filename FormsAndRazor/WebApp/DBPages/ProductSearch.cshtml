@@ -7,10 +7,10 @@
     var db = Database.Open("NWDB");
     var partialsearchstring = "%" + productsearch + "%";
 
-    if (string.IsNullOrEmpty(productsearch))
-    {
-        productsearch = "There is no product";
-    }
+    //if (string.IsNullOrEmpty(productsearch))
+    //{
+    //    productsearch = "There is no product";
+    //}
 
     var queryStatement = "SELECT ProductID, ProductName Name, CategoryID, UnitPrice, UnitsInStock "
                         + "FROM Products "
