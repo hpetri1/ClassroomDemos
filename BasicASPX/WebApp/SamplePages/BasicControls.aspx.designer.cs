@@ -40,13 +40,13 @@ namespace WebApp.SamplePages {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// RadioButtonListListChoice control.
+        /// RadioButtonListChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListListChoice;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonListChoice;
         
         /// <summary>
         /// Literal1 control.
@@ -58,13 +58,13 @@ namespace WebApp.SamplePages {
         protected global::System.Web.UI.WebControls.Literal Literal1;
         
         /// <summary>
-        /// TextBoxChoice control.
+        /// CheckBoxChoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxChoice;
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxChoice;
         
         /// <summary>
         /// Label2 control.
