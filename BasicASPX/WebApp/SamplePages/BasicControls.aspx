@@ -46,7 +46,7 @@
             <td align="right">
                 <asp:Label ID="Label2" runat="server" Text="DisplayLabel"></asp:Label></td>
             <td>
-                <asp:Label ID="DesplayDataReadOnly" runat="server"></asp:Label></td>
+                <asp:Label ID="DisplayDataReadOnly" runat="server"></asp:Label></td>
         </tr>
         <tr>
             <td align="right">
