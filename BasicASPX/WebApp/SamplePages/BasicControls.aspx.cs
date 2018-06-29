@@ -63,7 +63,7 @@ namespace WebApp.SamplePages
                 CollectionList.DataTextField = nameof(DDLClass.DisplayField);
                 CollectionList.DataValueField = nameof(DDLClass.ValueField);
 
-                // c) Bind teh data to the collection (physical attachement)
+                // c) Bind the data to the collection (physical attachement)
                 CollectionList.DataBind();
 
                 // d) You may wish to add a prompt line at the beginning of the 
@@ -74,8 +74,8 @@ namespace WebApp.SamplePages
 
         protected void SubmitButtonChoice_Click(object sender, EventArgs e)
         {
-            //grab teh contents of various controls and manipulate the content of other controls
-            //controls have certain properties tha can be accessed to obtaining and assigning values
+            //grab the contents of various controls and manipulate the content of other controls
+            //controls have certain properties that can be accessed to obtaining and assigning values
 
             //Textbox Property: Text
             string submitchoice = TextBoxNumberChoice.Text;
@@ -110,7 +110,7 @@ namespace WebApp.SamplePages
                 //demonstrate using SelectedIndex, SelectedValue and SelectedItem to 
                 //obtain data off the drop-down list
                 //The data will be concatenated into a single string
-                DisplayDataReadOnly.Text = CollectionList.SelectedItem.Text + " at index" + CollectionList.SelectedIndex.ToString()
+                DisplayDataReadOnly.Text = CollectionList.SelectedItem.Text + " at index " + CollectionList.SelectedIndex.ToString()
                     + " having a value of " + CollectionList.SelectedValue;
 
             }
@@ -120,6 +120,29 @@ namespace WebApp.SamplePages
         {
             //Label Property: Text
             MessageLabel.Text = "You pressed the Submit Choice link button";
+
+            string submitchoice = CollectionList.SelectedIndex.ToString();
+            if (submitchoice.Equals("0"))
+            {
+                DisplayDataReadOnly.Text = "You need to select a Course below";
+            }
+            else
+            {
+                DisplayDataReadOnly.Text = "You selected choice with Index = " + submitchoice;
+
+                if (submitchoice.Equals("2") || (submitchoice.Equals("4")))
+                {
+                    CheckBoxChoice.Checked = true;
+                }
+                else
+                {
+                    CheckBoxChoice.Checked = false;
+                }
+
+                RadioButtonListChoice.SelectedValue = submitchoice;
+
+                TextBoxNumberChoice.Text = submitchoice;
+            }
         }
     }
 }

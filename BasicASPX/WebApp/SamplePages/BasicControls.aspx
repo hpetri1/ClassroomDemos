@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Basic Controls</h1>
     <div class="row">
-        <div class="col-sm-offset-1 col sm-10">
+        <div class="col-sm-offset-1 col-sm-10">
             <div class="alert alert-info">
                 <blockquote style="font-style:italic">
                     This page will demonstrate some basic controls of a webpage.

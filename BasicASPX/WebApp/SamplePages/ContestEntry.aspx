@@ -78,11 +78,11 @@
             <asp:TextBox ID="CheckAnswer" runat="server" ></asp:TextBox>
         </p>
         <p>
-            <asp:Button ID="Submit" runat="server" Text="Submit"  />&nbsp;&nbsp;
-            <asp:Button ID="Clear" runat="server" Text="Clear"  />
+            <asp:Button ID="Submit" runat="server" Text="Submit" OnClick="Submit_Click"  />&nbsp;&nbsp;
+            <asp:Button ID="Clear" runat="server" Text="Clear" OnClick="Clear_Click"  />
         </p>
                
-        <asp:Label ID="Message" runat="server" Text="bob" ></asp:Label>
+        <asp:Label ID="Message" runat="server"></asp:Label>
 
      </div>
     
