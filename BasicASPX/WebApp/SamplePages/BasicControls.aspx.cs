@@ -118,19 +118,19 @@ namespace WebApp.SamplePages
 
         protected void LinkButtonSubmitChoice_Click(object sender, EventArgs e)
         {
-            //Label Property: Text
-            MessageLabel.Text = "You pressed the Submit Choice link button";
-
-            string submitchoice = CollectionList.SelectedIndex.ToString();
-            if (submitchoice.Equals("0"))
+            //DDL Property: SelectedValue, SlectedIndex, SelectedItem
+            if (CollectionList.SelectedIndex == 0)
             {
-                DisplayDataReadOnly.Text = "You need to select a Course below";
+                MessageLabel.Text = "Please select a course.";
             }
             else
             {
-                DisplayDataReadOnly.Text = "You selected choice with Index = " + submitchoice;
+                string ddlselection = CollectionList.SelectedValue;
+                TextBoxNumberChoice.Text = ddlselection;
+                RadioButtonListChoice.SelectedValue = ddlselection;
 
-                if (submitchoice.Equals("2") || (submitchoice.Equals("4")))
+                //CheckBox: Property: Checked (boolean)
+                if (ddlselection.Equals("2") || ddlselection.Equals("4"))
                 {
                     CheckBoxChoice.Checked = true;
                 }
@@ -138,11 +138,34 @@ namespace WebApp.SamplePages
                 {
                     CheckBoxChoice.Checked = false;
                 }
-
-                RadioButtonListChoice.SelectedValue = submitchoice;
-
-                TextBoxNumberChoice.Text = submitchoice;
+                DisplayDataReadOnly.Text = CollectionList.SelectedItem.Text + " at index " + CollectionList.SelectedIndex.ToString()
+                        + " having a value of " + CollectionList.SelectedValue;
             }
+
+            //My Solution
+            //MessageLabel.Text = "You pressed the Submit Choice link button";
+
+            //string submitchoice = CollectionList.SelectedIndex.ToString();
+            //if (submitchoice.Equals("0"))
+            //{
+            //    DisplayDataReadOnly.Text = "You need to select a Course below";
+            //}
+            //else
+            //{
+            //    DisplayDataReadOnly.Text = "You selected choice with Index = " + submitchoice;
+
+            //    if (submitchoice.Equals("2") || (submitchoice.Equals("4")))
+            //    {
+            //        CheckBoxChoice.Checked = true;
+            //    }
+            //    else
+            //    {
+            //        CheckBoxChoice.Checked = false;
+            //    }
+
+            //    RadioButtonListChoice.SelectedValue = submitchoice;
+
+            //    TextBoxNumberChoice.Text = submitchoice;
         }
     }
 }
