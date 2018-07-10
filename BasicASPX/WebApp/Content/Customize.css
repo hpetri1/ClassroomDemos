@@ -17,7 +17,7 @@
 */
 .grid-form > *
 {
-    grid-column: 2 / span2;
+    grid-column: 2 / span 2;
 }
 
 /* refining items within grid-form using specific html tag names
@@ -43,4 +43,26 @@
 {
     grid-column: 3;
     text-align: left;
+}
+
+/*Added this from thead more.css color-profile from JobApplication*/
+.checkboxgrid-form {
+    display: grid;
+    grid-template-columns: 15px auto;
+    grid-column-gap: 2px;
+}
+
+.checkboxgrid-form > * {
+    grid-column: 1 / span 2;
+}
+
+  .checkboxgrid-form > input[type=checkbox] {
+        grid-column: 1;
+        margin-top: 2px;
+    }
+
+.checkboxgrid-form > input[type=checkbox] + label {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 0px; 
 }
