@@ -30,5 +30,7 @@ namespace NorthwindSystem.DAL
         //indicate the property in this context class that will connect the SQL table to the data definition class
         //this is done by using the EntityFramework datatype DbSet<T>, where <T> is the data definition class
         public DbSet<Product> Products { get; set; } //<Product> is data definition, Products is a property; a Set is plural => so we use ProductS
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
     }
 }
