@@ -28,15 +28,31 @@ namespace Northwind.Data.Entities
         // e) Primary key properties are best defaulted to end in ID (Id)
         // f) Compound PK are described using the Column(Order=n) annotation parameter; where n is 1, 2, 3, etc. (physical order of SQL attributes)
 
+        //Validation can be done on your individual property of your entity 
+
         [Key] // or [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductID { get; set; }
+
+        [Required(ErrorMessage = "Product Name is required")]
+        [StringLength(40, ErrorMessage = "Product Name is limited to 40 characters")]
         public string ProductName { get; set; }
-        public int? SupplierID { get; set; } // foreign key, ? does mean nullable (null)
+
+        public int? SupplierID { get; set; } // foreign key,    ? does mean nullable (null)
         public int? CategoryID { get; set; } // foreign key
+
+        [StringLength(20, ErrorMessage = "Quantity per Unit is limited to 20 characters")]
         public string QuantityPerUnit { get; set; }
+
+        [Range(0.0, double.MaxValue, ErrorMessage = "Invalid Price")]
         public decimal? UnitPrice { get; set; }
+
+        [Range(0.0, double.MaxValue, ErrorMessage = "Invalid Units in Stock")]
         public Int16? UnitsInStock { get; set; }
+
+        [Range(0.0, double.MaxValue, ErrorMessage = "Invalid units on order")]
         public Int16? UnitsOnOrder { get; set; }
+
+        [Range(0.0, double.MaxValue, ErrorMessage = "Invalid reorder level")]
         public Int16? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
 
