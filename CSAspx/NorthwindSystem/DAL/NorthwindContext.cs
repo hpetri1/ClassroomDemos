@@ -18,7 +18,7 @@ namespace NorthwindSystem.DAL
         //this class will interact with the entity framework software to access the database
         //to setup this interaction, this class will inherit from EntityFramework its DbContext class
 
-    internal class NorthwindContext:DbContext
+    internal class NorthwindContext:DbContext //if DbContext has red squiggles, install the Entity Framework
     {
         // we need to pass the database connection to the EntityFramework DbContext class via the :base("xxxx") parameter,
         // this is done via the NorthwindContext constructor

@@ -13,9 +13,9 @@ namespace NorthwindSystem.BLL
 {
     public class CategoryController
     {
-        //this method will return all records from the SQL table Products
+        //this method will return all records from the SQL table Category
         //This method will first create a transaction (=using) code block which uses the DAL Context class
-        //the Context class has a DbSet<Product> property for referencing the SQL table
+        //the Context class has a DbSet<Category> property for referencing the SQL table
         //The property works with EntityFramework to retrieve the data
 
         public List<Category> Categories_List()
@@ -26,7 +26,7 @@ namespace NorthwindSystem.BLL
             }
         }
 
-        //this method will return a specific record from the SQL Products table besed on the Primary Key
+        //this method will return a specific record from the SQL Category table besed on the Primary Key
         public Category Categories_GetCategory(int categoryid)
         {
             using (var context = new NorthwindContext())

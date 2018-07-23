@@ -14,7 +14,7 @@ namespace NorthwindSystem.BLL
 {
     //this is the public interface class that will handle
     // web page service requests for data to the Product sql table
-    //MEthods in this class can interact with the internal DAL Context class
+    //Methods in this class can interact with the internal DAL Context class
     public class ProductController
     {
         //this method will return all records from the SQL table Products
