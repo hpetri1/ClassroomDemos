@@ -43,6 +43,17 @@ namespace WebApp.WebForms
                         UserInfoGridView.DataSource = registrationinfo;
                         UserInfoGridView.DataBind();
                     }
+
+                    //(or: bool flag = false;
+                    // foreach(var item in registrationinfo){
+                    // if(item.fieldname == argvalue)
+                    //{
+                        //FlagsAttribute = true;
+                    //}}
+                    //if(flag) logic {
+                    //}
+                    //else
+                    //{if not found logic})
                 }
                 else
                 {
