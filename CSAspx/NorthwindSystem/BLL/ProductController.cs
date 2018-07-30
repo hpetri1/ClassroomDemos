@@ -54,7 +54,7 @@ namespace NorthwindSystem.BLL
                 context.Products.Add(newproduct);
 
                 //commit the record to the Database
-                //any entity validaytion is done at this time
+                //any entity validation is done at this time
                 //if this statement is NOT executed, the insert is NOT completed (Rollback)
                 //if this statement is executed BUT FAILS for some reson, the insert is NOT completed (Rollback)
                 //if this statement is executed AND is successful, then the insert has been physically placed
