@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using Northwind.Data.Entities;
 using Northwind.Data.Views;
 using NorthwindSystem.DAL;
+using System.ComponentModel;
 #endregion 
 
 namespace NorthwindSystem.BLL
 {
+    [DataObject]
     public class SupplierController
     {
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<Supplier> Suppliers_List()
         {
             //need to connect to the Context class
@@ -27,6 +30,7 @@ namespace NorthwindSystem.BLL
             }
         }
 
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<SupplierCategories> Suppliers_GetCategories(int suppilerid)
         {
             using (var context = new NorthwindContext())
